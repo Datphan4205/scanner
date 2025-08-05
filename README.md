@@ -16,6 +16,8 @@ This project was developed as part of a bash scripting course focusing on:
 - Integrate external tools and commands within scripts
 - Demonstrate understanding of scripting security best practices
 
+
+
 ## Features
 
 ### Current Implementation
@@ -32,6 +34,74 @@ This project was developed as part of a bash scripting course focusing on:
 3. **Potential Vulnerabilities**: Framework ready for vulnerability assessment
 4. **Recommendations**: Security hardening suggestions
 5. **Footer**: Report metadata and generation information
+
+# Network Vulnerability Scanner and Report Generator
+
+A comprehensive bash script for performing network security assessments and generating detailed vulnerability reports.
+
+## Overview
+
+This project is a command-line network security scanner that performs live port scanning using nmap and generates structured security reports. The scanner identifies open ports, running services, and provides a foundation for vulnerability assessment and security recommendations.
+
+## Purpose / Learning Objectives
+
+This project was developed as part of a bash scripting course focusing on:
+- Master fundamental Linux command-line operations  
+- Understand and apply text processing techniques in Linux  
+- Develop and implement shell scripts for automation  
+- Apply scripting to security hardening and auditing  
+- Integrate external tools and commands within scripts  
+- Demonstrate understanding of scripting security best practices  
+
+## Features
+
+### Current Implementation
+- **Live Port Scanning**: Uses nmap with service version detection (`-sV`)  
+- **Host Reachability Check**: Ping verification before scanning  
+- **Structured Reporting**: Professional report format with timestamps  
+- **Error Handling**: Graceful fallback if nmap is not available  
+- **Input Validation**: Proper argument checking and usage instructions  
+- **Multiple Target Support**: Works with IP addresses, hostnames, and localhost  
+
+### Report Sections
+1. **Header**: Target information and scan timestamp  
+2. **Open Ports and Detected Services**: Live nmap scan results with service versions  
+3. **Potential Vulnerabilities**: Framework ready for vulnerability assessment  
+4. **Recommendations**: Security hardening suggestions  
+5. **Footer**: Report metadata and generation information  
+
+## Core Security Concepts in Practice
+
+Once you’ve enumerated open ports and services, you need to translate that raw data into professional findings. This section defines the key terms your scanner will reference in its report.
+
+### Attack Surface
+The **attack surface** is the sum of all points where an attacker could try to enter or extract data.  
+> In your script: each open port and service you discover expands the target’s attack surface.
+
+### Enumeration
+**Enumeration** is actively gathering information—live hosts, open ports, service versions, usernames, shares—to discover attack vectors.  
+> In your script: `nmap -sV` service-version detection is your enumeration phase.
+
+### Vulnerability
+A **vulnerability** is a flaw in design, implementation, or configuration that can be exploited.  
+> In your script: an open port alone isn’t a vulnerability, but **vsftpd 2.3.4** on port 21 is (because it has a known CVE backdoor).
+
+### CVE (Common Vulnerabilities and Exposures)
+A **CVE** ID (e.g. CVE-2021-44228) uniquely labels a publicly known vulnerability.  
+> In your script: map service versions to their CVEs (e.g. “Apache httpd 2.4.48 → CVE-2021-40438”).
+
+### Exploit
+An **exploit** is code or a technique that actively leverages a vulnerability.  
+> In your script: **do not** include exploit code—your role is reporting, not attacking.
+
+### The Assessment Process
+1. **Scan Target**: run your scanner against an IP.  
+2. **Map Attack Surface**: list open ports/services.  
+3. **Perform Enumeration**: gather service versions (`nmap -sV`).  
+4. **Identify Vulnerabilities**: lookup associated CVEs.  
+5. **Report Findings**: output “Port 80/tcp: Apache httpd 2.4.48 (CVE-2021-40438).”  
+6. _(Out of scope)_ Exploitation: would be the attacker’s next step.
+
 
 ## Installation Requirements
 
