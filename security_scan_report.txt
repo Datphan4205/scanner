@@ -3,13 +3,19 @@
 ===============================
 
 Target IP/Hostname: scanme.nmap.org
-Scan Date: Tue Aug  5 22:42:05 PKT 2025
+Scan Date: Wed Aug 13 05:54:26 EST 2025
 
 --- Open Ports and Detected Services ---
 
 22/tcp    open  ssh        OpenSSH 6.6.1p1 Ubuntu 2ubuntu2.13 (Ubuntu Linux; protocol 2.0)
 |   cpe:/a:openbsd:openssh:6.6.1p1: 
+53/tcp    open  domain     Unbound
 80/tcp    open  http       Apache httpd 2.4.7 ((Ubuntu))
+|       Slowloris tries to keep many connections to the target web server open and hold
+|       them open as long as possible.  It accomplishes this by opening connections to
+443/tcp   open  tcpwrapped
+5060/tcp  open  tcpwrapped
+8080/tcp  open  tcpwrapped
 9929/tcp  open  nping-echo Nping echo
 31337/tcp open  tcpwrapped
 
@@ -22,9 +28,7 @@ Scan Date: Tue Aug  5 22:42:05 PKT 2025
 [!!] |     	CVE-2016-1908	9.8	https://vulners.com/cve/CVE-2016-1908
 [!!] |     	CVE-2015-5600	8.5	https://vulners.com/cve/CVE-2015-5600
 [!!] |     	CVE-2020-15778	7.8	https://vulners.com/cve/CVE-2020-15778
-[!!] |     	CVE-2016-6515	7.8	https://vulners.com/cve/CVE-2016-6515
 [!!] |     	CVE-2016-10012	7.8	https://vulners.com/cve/CVE-2016-10012
-[!!] |     	CVE-2015-8325	7.8	https://vulners.com/cve/CVE-2015-8325
 [!!] |     	CVE-2016-10708	7.5	https://vulners.com/cve/CVE-2016-10708
 [!!] |     	CVE-2016-10009	7.5	https://vulners.com/cve/CVE-2016-10009
 [!!] |     	CVE-2021-41617	7.0	https://vulners.com/cve/CVE-2021-41617
@@ -37,7 +41,6 @@ Scan Date: Tue Aug  5 22:42:05 PKT 2025
 [!!] |     	CVE-2023-48795	5.9	https://vulners.com/cve/CVE-2023-48795
 [!!] |     	CVE-2020-14145	5.9	https://vulners.com/cve/CVE-2020-14145
 [!!] |     	CVE-2019-6111	5.9	https://vulners.com/cve/CVE-2019-6111
-[!!] |     	CVE-2016-6210	5.9	https://vulners.com/cve/CVE-2016-6210
 [!!] |     	CVE-2016-10011	5.5	https://vulners.com/cve/CVE-2016-10011
 [!!] |     	CVE-2018-20685	5.3	https://vulners.com/cve/CVE-2018-20685
 [!!] |     	CVE-2018-15919	5.3	https://vulners.com/cve/CVE-2018-15919
@@ -143,6 +146,10 @@ Scan Date: Tue Aug  5 22:42:05 PKT 2025
 [!!] |     	CVE-2014-8109	4.3	https://vulners.com/cve/CVE-2014-8109
 [!!] |     	CVE-2014-0118	4.3	https://vulners.com/cve/CVE-2014-0118
 [!!] |     	CVE-2014-0117	4.3	https://vulners.com/cve/CVE-2014-0117
+[!!] |   VULNERABLE:
+[!!] |     State: LIKELY VULNERABLE
+[!!] |     IDs:  CVE:CVE-2007-6750
+[!!] |       https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2007-6750
 
 [+] Analyzing service versions for known vulnerabilities...
 
@@ -151,17 +158,39 @@ Scan Date: Tue Aug  5 22:42:05 PKT 2025
     Description: This version has multiple CVEs including user enumeration
     Recommendation: Upgrade to OpenSSH 8.x or later
 
+
+Querying NVD for vulnerabilities in: OpenSSH 6.6...
+  CVE ID: CVE-2014-2532
+  Description: sshd in OpenSSH before 6.6 does not properly support wildcards on AcceptEnv lines in sshd_config, which allows remote attackers to bypass intended environment restrictions by using a substring located before a wildcard character.
+  Severity: N/A
+---
+  CVE ID: CVE-2014-2653
+  Description: The verify_host_key function in sshconnect.c in the client in OpenSSH 6.6 and earlier allows remote servers to trigger the skipping of SSHFP DNS RR checking by presenting an unacceptable HostCertificate.
+  Severity: N/A
+---
 [!!] MEDIUM: Apache 2.4.7 detected - Multiple known vulnerabilities
     Description: This version predates many security fixes
     Recommendation: Upgrade to latest Apache 2.4.x version
 
+
+Querying NVD for vulnerabilities in: Apache httpd 2.4.7...
+  CVE ID: CVE-2021-44224
+  Description: A crafted URI sent to httpd configured as a forward proxy (ProxyRequests on) can cause a crash (NULL pointer dereference) or, for configurations mixing forward and reverse proxy declarations, can allow for requests to be directed to a declared Unix Domain Socket endpoint (Server Side Request Forgery). This issue affects Apache HTTP Server 2.4.7 up to 2.4.51 (included).
+  Severity: HIGH
+---
 [!!] MEDIUM: Apache 2.4.7 detected - Multiple known vulnerabilities
     Description: This version predates many security fixes
     Recommendation: Upgrade to latest Apache 2.4.x version
 
+
+Querying NVD for vulnerabilities in: Apache httpd 2.4.7...
+  CVE ID: CVE-2021-44224
+  Description: A crafted URI sent to httpd configured as a forward proxy (ProxyRequests on) can cause a crash (NULL pointer dereference) or, for configurations mixing forward and reverse proxy declarations, can allow for requests to be directed to a declared Unix Domain Socket endpoint (Server Side Request Forgery). This issue affects Apache HTTP Server 2.4.7 up to 2.4.51 (included).
+  Severity: HIGH
+---
 === Additional Security Analysis ===
 === Vulnerability Summary ===
-[!] Total potential issues identified: 125
+[!] Total potential issues identified: 126
 [!] Immediate security review and remediation recommended
 
 --- Recommendations for Remediation ---
@@ -188,7 +217,7 @@ Scan Date: Tue Aug  5 22:42:05 PKT 2025
 
 --- End of Report ---
 
-Report generated on: Tue Aug  5 22:42:05 PKT 2025
+Report generated on: Wed Aug 13 17:54:33 PKT 2025
 Generated by: Network Security Scanner v3.0 (with vulnerability analysis)
 
 DISCLAIMER: This scan is for authorized security assessment only.
