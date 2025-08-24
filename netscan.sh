@@ -5,6 +5,10 @@
 # Enhanced with vulnerability analysis using NSE and version checking
 #
 
+set -euo pipefail
+
+IFS=$'\n\t'
+
 # Function to write the report header
 write_header() {
     local target="$1"
@@ -13,7 +17,7 @@ write_header() {
     echo "==============================="
     echo ""
     echo "Target IP/Hostname: $target"
-    echo "Scan Date: $(date)"
+    echo "Scan Date: $(TZ='America/New_York' date)"
     echo ""
 }
 
